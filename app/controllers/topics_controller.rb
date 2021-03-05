@@ -55,6 +55,12 @@ class TopicsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  #new vote button
+  def upvote
+    @topic = Topic.find(params[:id])
+    @topic.votes.create
+    redirect_to(topics_path)
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -65,12 +71,5 @@ class TopicsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def topic_params
       params.require(:topic).permit(:tittle, :description)
-    end
-    
-    #new vote button
-    def upvote
-      @topic = Topic.find(params[:id])
-      @topic.vote.create
-      redirect_to(topics_path)
     end
 end
